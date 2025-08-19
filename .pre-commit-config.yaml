@@ -1,0 +1,37 @@
+fail_fast: true
+
+default_language_version:
+  python: python3.11
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: check-case-conflict
+      - id: check-ast
+      - id: check-merge-conflict
+      - id: check-toml
+      - id: check-xml
+      - id: check-yaml
+      - id: fix-encoding-pragma
+        args:
+          - "--remove"
+      - id: end-of-file-fixer
+        exclude: myapp/static
+      - id: fix-byte-order-marker
+      - id: trailing-whitespace
+        exclude: myapp/static
+
+  - repo: https://github.com/pre-commit/mirrors-isort
+    rev: v5.10.1
+    hooks:
+      - id: isort
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.1.2
+    hooks:
+      - id: ruff-format
+        exclude: myapp/[^/]+/migrations
+      - id: ruff
+        args: ["--fix", "--exit-non-zero-on-fix", "--ignore", "F401,F841"]
+        exclude: myapp/[^/]+/migrations
