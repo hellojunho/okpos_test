@@ -1,0 +1,11 @@
+venv
+
+__pycache__
+
+*.pyc
+
+shop/migrations/
+
+*.sqlite3
+
+*.bash
