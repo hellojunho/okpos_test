@@ -1,3 +1,46 @@
+# 실행 방법
+### 1. 가상환경
+```
+python3.8 -m venv venv
+```
+
+```
+source venv/bin/activate
+```
+
+```
+pip install -r requirements.txt
+```
+
+### 2. Docker-Compose 실행하기
+```
+docker-compose up --build
+```
+
+### 3. Docker-Compose 중지하기
+```
+docker-compose down
+```
+
+
+### 4. (로컬) 서버 초기화 및 실행하기
+```
+make reset-local-server
+```
+
+### 5. (로컬) 서버 실행하기
+```
+python manage.py runserver
+```
+
+### 테스트 코드 실행 방법
+
+
+
+
+
+
+
 # TODO
 - PEP8 -> pro-commit
 - python3.8, django2.2.24
