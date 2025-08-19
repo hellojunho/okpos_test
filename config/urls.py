@@ -26,9 +26,9 @@ from rest_framework import permissions
 
 schema_view = get_schema_view(
     openapi.Info(
-        title="Aptifit Service API",
+        title="OKPOS API",
         default_version="0.0.1",
-        description="Aptifit Service API Docs",
+        description="OKPOS API Docs",
         terms_of_service="https://www.google.com/policies/terms/",
         contact=openapi.Contact(email="junho991026@naver.com"),
         license=openapi.License(name="mit"),
