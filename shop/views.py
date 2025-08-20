@@ -6,5 +6,7 @@ from shop.serializers import ProductSerializer
 
 
 class ProductViewSet(viewsets.ModelViewSet):
-    queryset = Product.objects.all()
     serializer_class = ProductSerializer
+
+    def get_queryset(self) -> Product:
+        return Product.objects.prefetch_related("tag_set", "option_set").all()
