@@ -1,8 +1,6 @@
-from typing import Any, Dict  # ← 추가
+from typing import Any, Dict
 
 from drf_writable_nested.mixins import UniqueFieldsMixin
-
-# 중첩 검증 단계에서 unique 오류 방지
 from drf_writable_nested.serializers import WritableNestedModelSerializer
 from rest_framework import serializers
 
@@ -10,7 +8,7 @@ from shop.models import Product, ProductOption, Tag
 
 
 class TagSerializer(UniqueFieldsMixin, serializers.ModelSerializer):
-    pk = serializers.IntegerField(required=False, source="id")
+    pk = serializers.IntegerField(required=False, read_only=True, source="id")
 
     class Meta:
         model = Tag
@@ -24,7 +22,7 @@ class TagSerializer(UniqueFieldsMixin, serializers.ModelSerializer):
 
 
 class ProductOptionSerializer(serializers.ModelSerializer):
-    pk = serializers.IntegerField(required=False, source="id")
+    pk = serializers.IntegerField(required=False, read_only=True, source="id")
 
     class Meta:
         model = ProductOption
