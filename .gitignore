@@ -9,3 +9,5 @@ shop/migrations/
 *.sqlite3
 
 *.bash
+
+postgres_data/
