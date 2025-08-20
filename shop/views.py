@@ -1,7 +1,8 @@
+from django.db import transaction
+from rest_framework import viewsets
+
 from shop.models import Product
 from shop.serializers import ProductSerializer
-
-from rest_framework import viewsets
 
 
 class ProductViewSet(viewsets.ModelViewSet):
