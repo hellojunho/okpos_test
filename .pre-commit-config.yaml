@@ -1,7 +1,7 @@
 fail_fast: true
 
 default_language_version:
-  python: python3.11
+  python: python3.8  # 프로젝트에서 사용 중인 Python 버전에 맞춤
 
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
@@ -17,21 +17,80 @@ repos:
         args:
           - "--remove"
       - id: end-of-file-fixer
-        exclude: myapp/static
+        exclude: |
+          (?x)^(
+            .*\.min\.(js|css)$|
+            static/.*$|
+            postgres_data/.*$
+          )
       - id: fix-byte-order-marker
       - id: trailing-whitespace
-        exclude: myapp/static
+        exclude: |
+          (?x)^(
+            .*\.min\.(js|css)$|
+            static/.*$|
+            postgres_data/.*$
+          )
+      - id: check-added-large-files
+        args: ['--maxkb=500']
+      - id: check-docstring-first
+      - id: debug-statements
 
+  # Python import 정렬
   - repo: https://github.com/pre-commit/mirrors-isort
     rev: v5.10.1
     hooks:
       - id: isort
+        args: ["--profile", "black", "--line-length=88"]
+        exclude: |
+          (?x)^(
+            .*/migrations/.*\.py$|
+            venv/.*$
+          )
 
+  # 코드 포맷팅 및 린팅 (Ruff)
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.1.2
     hooks:
       - id: ruff-format
-        exclude: myapp/[^/]+/migrations
+        exclude: |
+          (?x)^(
+            .*/migrations/.*\.py$|
+            venv/.*$
+          )
       - id: ruff
-        args: ["--fix", "--exit-non-zero-on-fix", "--ignore", "F401,F841"]
-        exclude: myapp/[^/]+/migrations
+        args: [
+          "--fix",
+          "--exit-non-zero-on-fix",
+          "--ignore", "F401,F841,E501,COM812,COM819,ISC001,Q000,Q001,Q002,Q003,W191"
+        ]
+        exclude: |
+          (?x)^(
+            .*/migrations/.*\.py$|
+            venv/.*$
+          )
+
+  # Django 특화 검사
+  - repo: https://github.com/adamchainz/django-upgrade
+    rev: '1.15.0'
+    hooks:
+      - id: django-upgrade
+        args: [--target-version, "2.2"]  # Django 버전에 맞춤
+        exclude: |
+          (?x)^(
+            .*/migrations/.*\.py$|
+            venv/.*$
+          )
+
+  # 보안 검사
+  - repo: https://github.com/PyCQA/bandit
+    rev: '1.7.5'
+    hooks:
+      - id: bandit
+        args: ["-c", "pyproject.toml"]
+        exclude: |
+          (?x)^(
+            .*/migrations/.*\.py$|
+            .*/tests/.*\.py$|
+            venv/.*$
+          )
