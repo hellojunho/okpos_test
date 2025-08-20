@@ -22,37 +22,32 @@ make reset-local-server
 ## URL 접속
 👉 [서버 주소 (127.0.0.1:8000)](http://127.0.0.1:8000/)
 
+---
 
 # ✅ Docker Compose 실행 방법
 > PostgreSQL을 DB로 사용합니다.
 > 개발 시, 디스크 공간 부족으로 로컬 환경에 postgres_data 폴더를 생성합니다.
 
-## Docker 컨테이너 실행하기
+## Docker 컨테이너 실행 및 마이그레이션
 ```
-docker-compose up --build
-```
-
-## shell 접속하기
-```
-docker exec -it okpos_test-web-1 /bin/bash
+make docker-build-and-migrate
 ```
 
-## 마이그레이션 하기
+## Docker 컨테이너 제거 (컨테이너, 볼륨, postgres_data)
 ```
-python manage.py makemigrations
-
-python manage.py migrate
+make docker-prune-all
 ```
 
 ## URL 접속
 👉 [서버 주소 (0.0.0.0:8000)](http://0.0.0.0:8000/)
 
-## API URL
-### Swagger
+## Swagger
 👉 [http://0.0.0.0:8000/doc/](http://0.0.0.0:8000/doc/)
 
-### 전체 상품
+## 전체 상품
 👉 [http://0.0.0.0:8000/shop/products/](http://0.0.0.0:8000/shop/products/)
 
-### 개별 상품 (pk: 1)
+## 개별 상품 (pk: 1)
 👉 [http://0.0.0.0:8000/shop/products/1/](http://0.0.0.0:8000/shop/products/1/)
+
+---
