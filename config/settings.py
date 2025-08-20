@@ -46,13 +46,11 @@ INSTALLED_APPS = [
     "rest_framework",
     "drf_yasg",
     "whitenoise.runserver_nostatic",  # Use Whitenoise for static files in development
-    "silk",  # Django Silk for profiling
     # apps
     "shop",
 ]
 
 MIDDLEWARE = [
-    "silk.middleware.SilkyMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -62,6 +60,10 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",  # Use Whitenoise for static files
 ]
+
+if DEBUG:
+    INSTALLED_APPS.append("silk")  # Django Silk for profiling
+    MIDDLEWARE.insert(0, "silk.middleware.SilkyMiddleware")
 
 ROOT_URLCONF = "config.urls"
 
