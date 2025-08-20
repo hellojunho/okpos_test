@@ -7,3 +7,6 @@ gunicorn==21.2.0
 drf-yasg==1.21.0
 pytest==8.3.5
 drf-writable-nested==0.7.1
+whitenoise==6.7.0
+django-silk==4.4.1
+pre-commit==3.5.0
