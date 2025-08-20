@@ -20,6 +20,10 @@ repos:
         exclude: |
           (?x)^(
             .*\.min\.(js|css)$|
+            .*\.md$|
+            .*\.txt$|
+            .*\.toml$|
+            .*\.env$|
             static/.*$|
             postgres_data/.*$
           )
@@ -28,6 +32,10 @@ repos:
         exclude: |
           (?x)^(
             .*\.min\.(js|css)$|
+            .*\.md$|
+            .*\.txt$|
+            .*\.toml$|
+            .*\.env$|
             static/.*$|
             postgres_data/.*$
           )
@@ -45,6 +53,10 @@ repos:
         exclude: |
           (?x)^(
             .*/migrations/.*\.py$|
+            .*\.md$|
+            .*\.txt$|
+            .*\.toml$|
+            .*\.env$|
             venv/.*$
           )
 
@@ -56,6 +68,10 @@ repos:
         exclude: |
           (?x)^(
             .*/migrations/.*\.py$|
+            .*\.md$|
+            .*\.txt$|
+            .*\.toml$|
+            .*\.env$|
             venv/.*$
           )
       - id: ruff
@@ -67,6 +83,10 @@ repos:
         exclude: |
           (?x)^(
             .*/migrations/.*\.py$|
+            .*\.md$|
+            .*\.txt$|
+            .*\.toml$|
+            .*\.env$|
             venv/.*$
           )
 
@@ -79,6 +99,10 @@ repos:
         exclude: |
           (?x)^(
             .*/migrations/.*\.py$|
+            .*\.md$|
+            .*\.txt$|
+            .*\.toml$|
+            .*\.env$|
             venv/.*$
           )
 
@@ -92,5 +116,9 @@ repos:
           (?x)^(
             .*/migrations/.*\.py$|
             .*/tests/.*\.py$|
+            .*\.md$|
+            .*\.txt$|
+            .*\.toml$|
+            .*\.env$|
             venv/.*$
           )
