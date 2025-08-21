@@ -59,20 +59,28 @@ make docker-prune-all
 
 ## 전체 테스트 실행
 ```
-pytest shop/tests.py -v -s
+pytest shop/tests/* -v -s
 ```
 
 ## 특정 테스트 함수만 실행
 ```
-pytest shop/tests.py::test_create_product -v -s
+pytest shop/tests/test_create_product.py -v -s
 ```
 
 ```
-pytest shop/tests.py::test_patch_product -v -s
+pytest shop/tests/test_patch_product.py -v -s
 ```
 
 - `-v` 옵션을 통해 테스트 동작 과정을 자세히 확인할 수 있습니다.  
 - `-s` 옵션을 통해 print된 응답 데이터를 확인할 수 있습니다.
+
+## 테스트 결과 예시 화면
+
+### test_create_product.py
+<img width="836" height="745" alt="Image" src="https://github.com/user-attachments/assets/82995e8b-6805-4f59-bdf7-99011182d87d" />
+
+### test_patch_product.py
+<img width="835" height="783" alt="Image" src="https://github.com/user-attachments/assets/41c9d139-10b5-404e-8ef5-d77136cacf61" />
 
 ---
 
