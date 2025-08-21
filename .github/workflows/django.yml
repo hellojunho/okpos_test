@@ -10,21 +10,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    # services:
-    #   db:
-    #     image: postgres:latest
-    #     env:
-    #       POSTGRES_DB: postgres
-    #       POSTGRES_USER: postgres
-    #       POSTGRES_PASSWORD: postgres
-    #     ports:
-    #       - 5432:5432
-    #     options: >-
-    #       --health-cmd="pg_isready -U postgres"
-    #       --health-interval=10s
-    #       --health-timeout=5s
-    #       --health-retries=5
-
     env:
       SECRET_KEY: ${{ secrets.SECRET_KEY }}
       DEBUG: ${{ secrets.DEBUG }}
@@ -67,11 +52,15 @@ jobs:
         run: |
           docker compose run --rm web python manage.py migrate
 
-      - name: Run tests
+      - name: Run tests (with coverage)
         run: |
-          docker compose run --rm web pytest -v -s --ds=config.settings shop/tests/*
+          docker compose run --rm web pytest -v -s \
+            --cov=config --cov=shop \
+            --cov-report=xml:/app/coverage.xml \
+            shop/tests/*
 
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./coverage.xml

@@ -1,15 +1,22 @@
+# Django
 Django==2.2.24
+drf-writable-nested==0.7.1
+whitenoise==6.7.0
+drf-yasg==1.21.0
+gunicorn==21.2.0
 pytz==2025.2
 sqlparse==0.5.3
 python-dotenv==1.0.1
+
+# DB
 psycopg2-binary==2.9.9
-gunicorn==21.2.0
-drf-yasg==1.21.0
-pytest==8.3.5
-drf-writable-nested==0.7.1
-whitenoise==6.7.0
+
+# Debug
 django-silk==4.4.1
 pre-commit==3.5.0
+
+# test
+pytest==8.3.5
 django-pytest==0.2.0
 pytest-django==4.11.1
 pytest-cov==5.0.0
