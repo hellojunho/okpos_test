@@ -50,6 +50,12 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: Install Docker Compose
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y docker-compose-plugin
+          docker compose version
+
       - name: Start containers
         run: |
           docker-compose up -d
@@ -64,8 +70,8 @@ jobs:
 
       - name: Run migrations
         run: |
-          python manage.py migrate
+          docker exec -it okpos_test-web-1 /bin/bash -c "python3 manage.py collectstatic --noinput && python3 manage.py makemigrations && python3 manage.py migrate"
 
       - name: Run tests
         run: |
-          pytest -v -s --ds=config.settings shop/tests/*
+          docker exec -it okpos_test-web-1 /bin/bash -c "pytest -v -s --ds=config.settings shop/tests/*"
