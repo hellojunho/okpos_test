@@ -18,14 +18,13 @@ docker-build-and-migrate:
 			exit 1; \
 		fi; \
 	done
-	docker exec -it okpos_test-web-1 /bin/bash -c \
-	"python3 manage.py makemigrations && \
-	python3 manage.py migrate"
+	docker exec -it okpos_test-web-1 /bin/bash -c "python3 manage.py collectstatic --noinput && python3 manage.py makemigrations && python3 manage.py migrate"
 
 docker-prune-all:
 	docker-compose down
 	docker system prune -a --volumes -f
 	rm -rf postgres_data
+	rm -rf staticfiles
 
 # django
 migrate:
