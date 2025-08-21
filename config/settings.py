@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     # third-party apps
     "rest_framework",
     "drf_yasg",
-    "whitenoise.runserver_nostatic",  # Use Whitenoise for static files in development
+    "whitenoise.runserver_nostatic",
     # apps
     "shop",
 ]
@@ -64,6 +64,9 @@ MIDDLEWARE = [
 if DEBUG:
     INSTALLED_APPS.append("silk")  # Django Silk for profiling
     MIDDLEWARE.insert(0, "silk.middleware.SilkyMiddleware")
+else:
+    MIDDLEWARE.insert(1, "whitenoise.middleware.WhiteNoiseMiddleware")
+    # STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 ROOT_URLCONF = "config.urls"
 
