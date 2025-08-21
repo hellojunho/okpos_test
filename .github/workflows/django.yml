@@ -50,10 +50,12 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Install Docker Compose
+      - name: Install Docker Compose v2
         run: |
-          sudo apt-get update
-          sudo apt-get install -y docker-compose-plugin
+          DOCKER_CONFIG=${DOCKER_CONFIG:-$HOME/.docker}
+          mkdir -p $DOCKER_CONFIG/cli-plugins
+          curl -SL https://github.com/docker/compose/releases/download/v2.29.7/docker-compose-linux-x86_64 -o $DOCKER_CONFIG/cli-plugins/docker-compose
+          chmod +x $DOCKER_CONFIG/cli-plugins/docker-compose
           docker compose version
 
       - name: Start containers
@@ -70,8 +72,8 @@ jobs:
 
       - name: Run migrations
         run: |
-          docker exec -it okpos_test-web-1 /bin/bash -c "python3 manage.py collectstatic --noinput && python3 manage.py makemigrations && python3 manage.py migrate"
+          docker compose run --rm web python manage.py migrate
 
       - name: Run tests
         run: |
-          docker exec -it okpos_test-web-1 /bin/bash -c "pytest -v -s --ds=config.settings shop/tests/*"
+          docker compose run --rm web pytest -v -s --ds=config.settings shop/tests/*
