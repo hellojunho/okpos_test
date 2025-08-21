@@ -50,6 +50,11 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: Start containers
+        run: |
+          docker-compose up -d
+          docker ps -a
+
       - name: Wait for DB
         run: |
           until pg_isready -h $DB_HOST -p $DB_PORT -U $DB_USER; do
