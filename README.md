@@ -96,3 +96,6 @@ pytest shop/tests/test_patch_product.py -v -s
 
 ## 결과 예시 화면
 <img width="584" height="614" alt="Image" src="https://github.com/user-attachments/assets/e92e1845-cc1f-4477-83e7-344de06c3c94" />
+
+# CodeCov 결과 예시 화면
+<img width="837" height="643" alt="Image" src="https://github.com/user-attachments/assets/37ae9ccb-da54-466d-98fa-c7c019c93836" />
