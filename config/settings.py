@@ -58,11 +58,11 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "whitenoise.middleware.WhiteNoiseMiddleware",  # Use Whitenoise for static files
+    "whitenoise.middleware.WhiteNoiseMiddleware",
 ]
 
 if DEBUG:
-    INSTALLED_APPS.append("silk")  # Django Silk for profiling
+    INSTALLED_APPS.append("silk")
     MIDDLEWARE.insert(0, "silk.middleware.SilkyMiddleware")
 else:
     MIDDLEWARE.insert(1, "whitenoise.middleware.WhiteNoiseMiddleware")
