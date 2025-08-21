@@ -11,3 +11,5 @@ shop/migrations/
 *.bash
 
 postgres_data/
+
+staticfiles/
