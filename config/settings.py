@@ -92,15 +92,15 @@ WSGI_APPLICATION = "config.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-ENVIRONMENT = os.getenv("ENVIRONMENT", "development")
-if ENVIRONMENT == "development":
+ENVIRONMENT = os.getenv("ENVIRONMENT", "local")
+if ENVIRONMENT == "local":
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.sqlite3",
             "NAME": str(BASE_DIR / "db.sqlite3"),
         }
     }
-elif ENVIRONMENT == "production":
+elif ENVIRONMENT == "docker":
     DATABASES = {
         "default": {
             "ENGINE": os.getenv("DB_ENGINE", "django.db.backends.postgresql"),

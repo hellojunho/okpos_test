@@ -63,13 +63,6 @@ jobs:
           docker compose up -d
           docker ps -a
 
-      - name: Wait for DB
-        run: |
-          until pg_isready -h $DB_HOST -p $DB_PORT -U $DB_USER; do
-            echo "⏳ Waiting for database..."
-            sleep 2
-          done
-
       - name: Run migrations
         run: |
           docker compose run --rm web python manage.py migrate
