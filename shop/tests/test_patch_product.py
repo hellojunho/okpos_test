@@ -3,38 +3,39 @@ import json
 import pytest
 from rest_framework import status
 from rest_framework.test import APIClient
-from test_create_product import test_create_product
 
-from shop.models import Product, ProductOption, Tag
+from shop.models import Product
 
 
 @pytest.mark.django_db()
-def test_patch_product() -> None:
+def test_patch_product(product_seed: int) -> None:
     """
     /shop/products/1/ 엔드포인트로 PATCH 요청
     """
-    # 먼저 테스트를 위해 제품을 생성합니다.
-    test_create_product()
+    product_seed = Product.objects.get(id=product_seed)
+    assert product_seed is not None, "Product seed should not be None"
 
     client = APIClient()
+    data = {
+        "name": "TestProduct",
+        "option_set": [
+            {"pk": 1, "name": "TestOption1", "price": 1000},
+            {"pk": 2, "name": "Edit TestOption2", "price": 1500},
+            {"name": "Edit New Option", "price": 0},
+        ],
+        "tag_set": [
+            {"id": 1, "name": "ExistingTag"},
+            {"pk": 2, "name": "NewTag"},
+            {"name": "Edit New Tag"},
+        ],
+    }
     response = client.patch(
         "/shop/products/1/",
-        data={
-            "name": "TestProduct",
-            "option_set": [
-                {"pk": 1, "name": "TestOption1", "price": 1000},
-                {"pk": 2, "name": "Edit TestOption2", "price": 1500},
-                {"name": "Edit New Option", "price": 0},
-            ],
-            "tag_set": [
-                {"id": 1, "name": "ExistingTag"},
-                {"pk": 2, "name": "NewTag"},
-                {"name": "Edit New Tag"},
-            ],
-        },
+        data=data,
         format="json",
     )
     assert response.status_code == status.HTTP_200_OK
+    print(f"Request: {json.dumps(data, ensure_ascii=False, indent=4)}")
 
     updated_product = Product.objects.prefetch_related("option_set", "tag_set").get(
         id=1
