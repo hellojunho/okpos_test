@@ -41,7 +41,7 @@ jobs:
 
       - name: Set environment variables
         run: |
-          echo "SECRET_KEY=${{ secrets.SECRET_KEY }}" >> $GITHUB_ENV
+          echo "SECRET_KEY='${{ secrets.SECRET_KEY }}'" >> $GITHUB_ENV
           echo "DEBUG=${{ secrets.DEBUG }}" >> $GITHUB_ENV
           echo "ENVIRONMENT=${{ secrets.ENVIRONMENT }}" >> $GITHUB_ENV
           echo "DB_HOST=localhost" >> $GITHUB_ENV
