@@ -14,12 +14,6 @@ class TagSerializer(UniqueFieldsMixin, serializers.ModelSerializer):
         model = Tag
         fields = ("pk", "name")
 
-    def create(self, validated_data: Dict[str, Any]) -> Tag:
-        tag, _ = Tag.objects.get_or_create(
-            name=validated_data["name"], defaults=validated_data
-        )
-        return tag
-
 
 class ProductOptionSerializer(serializers.ModelSerializer):
     pk = serializers.IntegerField(required=False, read_only=True, source="id")
