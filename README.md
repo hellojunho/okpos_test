@@ -87,3 +87,6 @@ pytest shop/tests/test_patch_product.py -v -s
 # Github Action
 - `main` 브랜치로 Push를 하게되면 [Actions](https://github.com/hellojunho/okpos_test/actions) 에서 Github Action의 동작을 확인할 수 있습니다.
 - docker compose를 사용하여 컨테이너를 올리고, 그 안에서 `pytest`를 실행합니다.
+
+## 결과 예시 화면
+<img width="584" height="614" alt="Image" src="https://github.com/user-attachments/assets/e92e1845-cc1f-4477-83e7-344de06c3c94" />
