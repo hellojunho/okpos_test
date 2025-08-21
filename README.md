@@ -41,6 +41,12 @@ make docker-prune-all
 ```
 - Makefile에 정의된 명령어를 사용하여 컨테이너를 제거합니다.
 
+## Docker 컨테이너 안에서의 명령어
+```
+docker exec -it okpos_test-web-1 /bin/bash
+```
+- 위 명령어를 입력하면 django 컨테이너에 접속하여 명령어를 입력할 수 있습니다.
+
 ## URL 접속
 👉 [서버 주소 (0.0.0.0:8000)](http://0.0.0.0:8000/)
 
