@@ -28,7 +28,10 @@ def test_create_product() -> None:
     )
     assert response.status_code == status.HTTP_201_CREATED
 
-    product = Product.objects.get(name="TestProduct")
+    product = Product.objects.prefetch_related("option_set", "tag_set").get(
+        name="TestProduct"
+    )
+    options = list(product.option_set.all())
 
     assert product.name == "TestProduct"
     assert product.tag_set.count() == 2
@@ -62,7 +65,7 @@ def test_create_product() -> None:
         "name": product.name,
         "options": [
             {"id": option.id, "name": option.name, "price": option.price}
-            for option in product.option_set.all()
+            for option in options
         ],
         "tags": [{"id": tag.id, "name": tag.name} for tag in product.tag_set.all()],
     }

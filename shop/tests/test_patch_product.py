@@ -3,6 +3,7 @@ import json
 import pytest
 from rest_framework import status
 from rest_framework.test import APIClient
+from test_create_product import test_create_product
 
 from shop.models import Product, ProductOption, Tag
 
@@ -12,19 +13,12 @@ def test_patch_product() -> None:
     """
     /shop/products/1/ 엔드포인트로 PATCH 요청
     """
-    product = Product.objects.create(name="TestProduct")
-    tag1 = Tag.objects.create(name="ExistingTag", pk=1)
-    tag2 = Tag.objects.create(name="NewTag")
-
-    product.tag_set.add(tag1, tag2)
-
-    ProductOption.objects.create(product=product, name="TestOption1", price=1000)
-    ProductOption.objects.create(product=product, name="TestOption2", price=500)
-    ProductOption.objects.create(product=product, name="TestOption3", price=0)
+    # 먼저 테스트를 위해 제품을 생성합니다.
+    test_create_product()
 
     client = APIClient()
     response = client.patch(
-        f"/shop/products/{product.id}/",
+        "/shop/products/1/",
         data={
             "name": "TestProduct",
             "option_set": [
@@ -42,7 +36,12 @@ def test_patch_product() -> None:
     )
     assert response.status_code == status.HTTP_200_OK
 
-    updated_product = Product.objects.get(id=product.id)
+    updated_product = Product.objects.prefetch_related("option_set", "tag_set").get(
+        id=1
+    )
+    tags = list(updated_product.tag_set.all())
+    options = list(updated_product.option_set.all())
+
     assert updated_product.name == "TestProduct"
     assert updated_product.tag_set.count() == 3
     assert updated_product.tag_set.filter(name="ExistingTag").exists()
@@ -58,11 +57,9 @@ def test_patch_product() -> None:
         "name": updated_product.name,
         "options": [
             {"id": option.id, "name": option.name, "price": option.price}
-            for option in updated_product.option_set.all()
+            for option in options
         ],
-        "tags": [
-            {"id": tag.id, "name": tag.name} for tag in updated_product.tag_set.all()
-        ],
+        "tags": [{"id": tag.id, "name": tag.name} for tag in tags],
     }
     json_response = json.dumps(json_response, ensure_ascii=False, indent=4)
     print(f"Response: {json_response}")
