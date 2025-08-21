@@ -64,3 +64,9 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: ./coverage.xml
+
+      - name: Clean up containers
+        if: always()
+        run: |
+          docker compose down -v
+          docker system prune -af
