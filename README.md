@@ -73,4 +73,3 @@ pytest shop/tests.py::test_patch_product -v -s
 
 - `-v` 옵션을 통해 테스트 동작 과정을 자세히 확인할 수 있습니다.  
 - `-s` 옵션을 통해 print된 응답 데이터를 확인할 수 있습니다.
-- `Makefile`을 사용하지 않은 이유는 테스트 할 파일의 경로를 특정해줘야 하기
