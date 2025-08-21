@@ -14,6 +14,12 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
+## .env ENVIRONMENT 변수 값 설정하기
+```
+ENVIRONMENT="local"
+```
+- 제출 시 기본 값으로는 `"docker"`로 설정했습니다.
+
 ## DB 초기화 및 서버 실행하기
 ```
 make reset-local-server
@@ -28,6 +34,11 @@ make reset-local-server
 # ✅ Docker Compose 실행 방법
 - PostgreSQL을 DB로 사용합니다.
 - 개발 시, 디스크 공간 부족으로 로컬 환경에 postgres_data 폴더를 생성합니다.
+
+## .env ENVIRONMENT 변수 값 설정하기
+```
+ENVIRONMENT="docker"
+```
 
 ## Docker 컨테이너 실행 및 마이그레이션
 ```
