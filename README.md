@@ -73,3 +73,9 @@ pytest shop/tests.py::test_patch_product -v -s
 
 - `-v` 옵션을 통해 테스트 동작 과정을 자세히 확인할 수 있습니다.  
 - `-s` 옵션을 통해 print된 응답 데이터를 확인할 수 있습니다.
+
+---
+
+# Github Action
+- `main` 브랜치로 Push를 하게되면 [Actions](https://github.com/hellojunho/okpos_test/actions) 에서 Github Action의 동작을 확인할 수 있습니다.
+- docker compose를 사용하여 컨테이너를 올리고, 그 안에서 `pytest`를 실행합니다.
