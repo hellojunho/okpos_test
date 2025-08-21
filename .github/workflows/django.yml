@@ -70,3 +70,8 @@ jobs:
       - name: Run tests
         run: |
           docker compose run --rm web pytest -v -s --ds=config.settings shop/tests/*
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
